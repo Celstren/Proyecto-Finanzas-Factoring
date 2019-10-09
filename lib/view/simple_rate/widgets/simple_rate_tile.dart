@@ -22,7 +22,7 @@ class SimpleRateTile extends StatelessWidget {
             height: ScreenUtil.getInstance().setHeight(200),
             width: ScreenUtil.getInstance().setWidth(300),
             child: Center(
-              child: Text(this.text, style: FinanzappStyles.simpleTextBigFontStyle,),
+              child: Text(this.text, style: FinanzappStyles.commonTextStyle2,),
             ),
           ),
           Container(
@@ -36,10 +36,10 @@ class SimpleRateTile extends StatelessWidget {
                 LengthLimitingTextInputFormatter(10),
                 WhitelistingTextInputFormatter.digitsOnly,
               ],
-              style: FinanzappStyles.simpleTextFieldStyle,
+              style: FinanzappStyles.commonTextStyle3,
               decoration: InputDecoration(
                 hintText: hint,
-                hintStyle: FinanzappStyles.simpleTextFieldStyle,
+                hintStyle: FinanzappStyles.commonTextStyle3,
               ),
             ),
           ),

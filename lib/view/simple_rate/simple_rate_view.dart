@@ -61,7 +61,7 @@ class _SimpleRateState extends State<SimpleRateView> {
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.symmetric(vertical: ScreenUtil.getInstance().setHeight(10)),
-                  child: Text(SimpleRateStrings.CALCULATE_VALUE_OF, style: FinanzappStyles.simpleTextFieldStyle,),
+                  child: Text(SimpleRateStrings.CALCULATE_VALUE_OF, style: FinanzappStyles.commonTextStyle3,),
                 ),
                 Flexible(
                   fit: FlexFit.tight,
@@ -78,14 +78,14 @@ class _SimpleRateState extends State<SimpleRateView> {
                         child: DropdownButton<SimpleRateEnum>(
                           isExpanded: true,
                           value: valueSelected,
-                          style: FinanzappStyles.dropDownStyle,
-                          hint: Text(MainViewStrings.FINANCE_YEAR, style: FinanzappStyles.dropDownStyle,),
+                          style: FinanzappStyles.commonTextStyle8,
+                          hint: Text(MainViewStrings.FINANCE_YEAR, style: FinanzappStyles.commonTextStyle8,),
                           items: simpleRateEnumList.map<DropdownMenuItem<SimpleRateEnum>>(
                                   (SimpleRateEnum value){
                                 return DropdownMenuItem<SimpleRateEnum>(
                                   value: value,
                                   child: Container(
-                                    child: Text(value.name, style: FinanzappStyles.dropDownStyle,),
+                                    child: Text(value.name, style: FinanzappStyles.commonTextStyle8,),
                                   ),
                                 );
                               }
@@ -123,7 +123,7 @@ class _SimpleRateState extends State<SimpleRateView> {
                   splashColor: Colors.lightBlue,
                   color: Colors.blueGrey,
                   child: Center(
-                    child: Text(SimpleRateStrings.CALCULATE.toUpperCase(), style: FinanzappStyles.simpleWhiteTextFieldBigFontStyle,),
+                    child: Text(SimpleRateStrings.CALCULATE.toUpperCase(), style: FinanzappStyles.commonTextStyle4,),
                   ),
                   onPressed: (){
                     calculateMissingValue();

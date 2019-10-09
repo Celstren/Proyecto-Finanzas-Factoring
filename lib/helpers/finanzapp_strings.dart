@@ -150,3 +150,27 @@ class SeeEquivalenciesStrings {
   static const String CALCULATE_EQUIVALENCY_TO = "calcular su equivalencia a";
   static const String IS_EXACT = "¿Es Exacto?";
 }
+
+class TIRCalculatorStrings {
+
+  static const String TITLE = "Calculadora de TIR";
+  static const String INITIAL_OUTLAY = "Desembolso Inicial";
+  static const String IRR = "TIR";
+  static const String INTERNAL_RATE_RETURN = "Tasa Interna de Retorno";
+  static const String MONEY_HINT = "\$ 0.00";
+  static const String TIME_HINT = "Ingrese Periodo";
+  static const String INTERNAL_RATE_RETURN_IRR = "Tasa Interna de Retorno (TIR)";
+  static const String CHARGE = "Cobro";
+  static const String PAYMENT = "Pago";
+  static const String FORM_TITLE = "Relación de Pagos por Honorarios";
+  static const String ADD_FEE = "Añadir";
+  static const String REMOVE_FEE = "Remover";
+  static const String CALCULATE_TIR = "Calcular TIR";
+
+  //Error messages
+
+  static const String INVALID_INITIAL_OUTLAY = "El desembolso inicial es inválido";
+  static const String EMPTY_FEES_LIST = "La lista de pagos por honorarios no puede estar vacía";
+  static const String NEGATIVE_UTILITY = "La cantidad cobrada no puede ser mayor a la cantidad pagada en el pago #";
+  static const String INVALID_TIME = "Tiempo ingresado inválido en el pago #";
+}

@@ -109,7 +109,7 @@ class _SeeEquivalenciesState extends State<SeeEquivalenciesView> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: ScreenUtil.getInstance().setWidth(10)),
                     alignment: Alignment.centerLeft,
-                    child: Text(SeeEquivalenciesStrings.BASED_ON_VALUE_SELECTED, style: FinanzappStyles.simpleTextStyle,),
+                    child: Text(SeeEquivalenciesStrings.BASED_ON_VALUE_SELECTED, style: FinanzappStyles.commonTextStyle1,),
                   ),
                   Flexible(
                     fit: FlexFit.tight,
@@ -137,10 +137,10 @@ class _SeeEquivalenciesState extends State<SeeEquivalenciesView> {
                                 LengthLimitingTextInputFormatter(10),
                                 WhitelistingTextInputFormatter.digitsOnly,
                               ],
-                              style: FinanzappStyles.simpleTextFieldStyle,
+                              style: FinanzappStyles.commonTextStyle3,
                               decoration: InputDecoration(
                                 hintText: SeeEquivalenciesStrings.NEW_EQUIVALENCY_QUANTITY_HINT,
-                                hintStyle: FinanzappStyles.simpleTextFieldStyle,
+                                hintStyle: FinanzappStyles.commonTextStyle3,
                               ),
                               onChanged: (value){
                                 setState(() {
@@ -178,7 +178,7 @@ class _SeeEquivalenciesState extends State<SeeEquivalenciesView> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             SeeEquivalenciesStrings.CALCULATE_EQUIVALENCY_TO,
-                            style: FinanzappStyles.simpleTextFieldStyle,
+                            style: FinanzappStyles.commonTextStyle3,
                           ),
                         ),
                         Flexible(
@@ -206,18 +206,18 @@ class _SeeEquivalenciesState extends State<SeeEquivalenciesView> {
                     child: Container(
                       padding: EdgeInsets.all(ScreenUtil.getInstance().setSp(10)),
                       decoration: BoxDecoration(
-                        color: isExact? FinanzappColorsLightMode.SIMPLE_TEXT_GREEN_COLOR : FinanzappColorsLightMode.SIMPLE_TEXT_RED_COLOR,
+                        color: isExact? FinanzappColorsLightMode.TEXT_COLOR_3 : FinanzappColorsLightMode.TEXTO_COLOR_2,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.check,
-                        color: FinanzappColorsLightMode.SIMPLE_TEXT_WHITE_COLOR,
+                        color: FinanzappColorsLightMode.TEXT_COLOR_1,
                       ),
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.all(ScreenUtil.getInstance().setSp(10)),
-                    child: Text(SeeEquivalenciesStrings.IS_EXACT, style: FinanzappStyles.simpleTextFieldStyle,),
+                    child: Text(SeeEquivalenciesStrings.IS_EXACT, style: FinanzappStyles.commonTextStyle3,),
                   ),
                 ],
               ),
@@ -225,7 +225,7 @@ class _SeeEquivalenciesState extends State<SeeEquivalenciesView> {
             Container(
               margin: EdgeInsets.symmetric(vertical: ScreenUtil.getInstance().setHeight(80)),
               child: Center(
-                child: Text(calculatedResult, style: FinanzappStyles.equivalenciesResultStyle,),
+                child: Text(calculatedResult, style: FinanzappStyles.commonTextStyle7,),
               ),
             ),
           ],

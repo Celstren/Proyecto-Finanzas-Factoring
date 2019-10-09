@@ -25,6 +25,7 @@ class FinanceDateEnum extends BaseEnum {
   static const FinanceDateEnum FIFTEEN_DAY_PERIOD = const FinanceDateEnum(6, MainViewStrings.FIFTEEN_DAY_PERIOD);
   static const FinanceDateEnum FINANCE_DAY        = const FinanceDateEnum(7, MainViewStrings.FINANCE_DAY);
 
+  ///Obtener objeto tipo periodo financiero a parir del id
   static getFinanceDateFromId(double quantity, int financeDateId){
     if (financeDateId == FINANCE_YEAR.id){
       return FinanceYear(value: quantity);

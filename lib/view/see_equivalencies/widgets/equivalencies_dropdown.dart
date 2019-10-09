@@ -37,14 +37,14 @@ class EquivalenciesDropdown extends StatelessWidget {
           child: DropdownButton<FinanceDateEnum>(
             isExpanded: true,
             value: valueSelected,
-            style: FinanzappStyles.dropDownStyle,
-            hint: Text(MainViewStrings.FINANCE_YEAR, style: FinanzappStyles.dropDownStyle,),
+            style: FinanzappStyles.commonTextStyle8,
+            hint: Text(MainViewStrings.FINANCE_YEAR, style: FinanzappStyles.commonTextStyle8,),
             items: financeDateList.map<DropdownMenuItem<FinanceDateEnum>>(
                     (FinanceDateEnum value){
                   return DropdownMenuItem<FinanceDateEnum>(
                     value: value,
                     child: Container(
-                      child: Text(value.name, style: FinanzappStyles.dropDownStyle,),
+                      child: Text(value.name, style: FinanzappStyles.commonTextStyle8,),
                     ),
                   );
                 }

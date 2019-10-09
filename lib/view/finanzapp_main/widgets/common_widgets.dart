@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
 
 class CommonWidgets {
@@ -12,7 +11,7 @@ class CommonWidgets {
         alignment: Alignment.centerLeft,
         margin: EdgeInsets.symmetric(vertical: ScreenUtil.getInstance().setHeight(10)),
         padding: EdgeInsets.symmetric(horizontal: ScreenUtil.getInstance().setWidth(40)),
-        child: Text(name, style: FinanzappStyles.drawerOptionStyle,),
+        child: Text(name, style: FinanzappStyles.commonTextStyle5,),
       ),
     );
   }

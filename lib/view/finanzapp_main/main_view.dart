@@ -8,6 +8,7 @@ import 'package:proyecto_finanzas/view/finanzapp_main/widgets/common_widgets.dar
 import 'package:proyecto_finanzas/view/nominal_rate/nominal_rate_view.dart';
 import 'package:proyecto_finanzas/view/see_equivalencies/see_equivalencies_view.dart';
 import 'package:proyecto_finanzas/view/simple_rate/simple_rate_view.dart';
+import 'package:proyecto_finanzas/view/tir_calculator/tir_calculator_view.dart';
 
 class MainView extends StatefulWidget {
   @override
@@ -30,8 +31,11 @@ class _StateMainView extends State<MainView>{
         _currentView = EffectiveRateView();
       } else if (T == SeeEquivalenciesView){
         _currentView = SeeEquivalenciesView();
+      } else if (T == TIRCalculatorView){
+        _currentView = TIRCalculatorView();
       }
     });
+    Navigator.pop(context);
   }
 
   @override
@@ -42,7 +46,7 @@ class _StateMainView extends State<MainView>{
       child: Scaffold(
         appBar: AppBar(
           title: Center(
-            child: Text(MainViewStrings.MAIN_TITLE.toUpperCase(), style: FinanzappStyles.titleStyle,),
+            child: Text(MainViewStrings.MAIN_TITLE.toUpperCase(), style: FinanzappStyles.titleStyle2,),
           ),
         ),
         drawer: Drawer(
@@ -56,6 +60,7 @@ class _StateMainView extends State<MainView>{
                 CommonWidgets.buildDrawerOptionWidget(name: NominalRateStrings.TITLE.toUpperCase(), onTapFun: (){updateStateWithNewView<NominalRateView>();}),
                 CommonWidgets.buildDrawerOptionWidget(name: EffectiveRateStrings.TITLE.toUpperCase(), onTapFun: (){updateStateWithNewView<EffectiveRateView>();}),
                 CommonWidgets.buildDrawerOptionWidget(name: SeeEquivalenciesStrings.TITLE.toUpperCase(), onTapFun: (){updateStateWithNewView<SeeEquivalenciesView>();}),
+                CommonWidgets.buildDrawerOptionWidget(name: TIRCalculatorStrings.TITLE.toUpperCase(), onTapFun: (){updateStateWithNewView<TIRCalculatorView>();}),
               ],
             ),
           ),

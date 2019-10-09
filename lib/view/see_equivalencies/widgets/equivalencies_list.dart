@@ -25,7 +25,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.financeYearCount(financeDateSelected.toFinanceYear().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,
+              style: FinanzappStyles.commonTextStyle6,
             ),
           ),
           Container(
@@ -35,7 +35,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.sixMonthPeriodCount(financeDateSelected.toSixMonthPeriod().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,
+              style: FinanzappStyles.commonTextStyle6,
             ),
           ),
           Container(
@@ -45,7 +45,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.fourMonthPeriodCount(financeDateSelected.toFourMonthPeriod().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,
+              style: FinanzappStyles.commonTextStyle6,
             ),
           ),
           Container(
@@ -55,7 +55,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.threeMonthPeriodCount(financeDateSelected.toThreeMonthPeriod().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,),
+              style: FinanzappStyles.commonTextStyle6,),
           ),
           Container(
             height: ScreenUtil.getInstance().setHeight(70),
@@ -64,7 +64,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.twoMonthPeriodCount(financeDateSelected.toTwoMonthPeriod().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,),
+              style: FinanzappStyles.commonTextStyle6,),
           ),
           Container(
             height: ScreenUtil.getInstance().setHeight(70),
@@ -73,7 +73,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.financeMonthCount(financeDateSelected.toFinanceMonth().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,),
+              style: FinanzappStyles.commonTextStyle6,),
           ),
           Container(
             height: ScreenUtil.getInstance().setHeight(70),
@@ -82,7 +82,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.fifteenDayPeriodCount(financeDateSelected.toFifteenDayPeriod().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,),
+              style: FinanzappStyles.commonTextStyle6,),
           ),
           Container(
             height: ScreenUtil.getInstance().setHeight(70),
@@ -91,7 +91,7 @@ class EquivalenceList extends StatelessWidget {
                 " " + financeDateValueSelected.name.toLowerCase() +
                 " " + SeeEquivalenciesStrings.EQUIVALENCE_TO +
                 " " + MainViewStrings.financeDayCount(financeDateSelected.toFinanceDay().value).toLowerCase(),
-              style: FinanzappStyles.equivalenciesTextStyle,),
+              style: FinanzappStyles.commonTextStyle6,),
           ),
         ],
       ),
