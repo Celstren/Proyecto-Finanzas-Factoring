@@ -33,7 +33,7 @@ class InitialOutlayWidget extends StatelessWidget {
             child: TextField(
               controller: initialOutlayTextEditingController,
               style: FinanzappStyles.commonTextStyle5,
-              decoration: InputDecoration.collapsed(),
+              decoration: InputDecoration.collapsed(hintText: null),
             ),
           ),
         ],

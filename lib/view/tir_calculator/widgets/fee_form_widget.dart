@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proyecto_finanzas/view/tir_calculator/objects/fee_object.dart';
 import 'package:proyecto_finanzas/view/tir_calculator/widgets/fee_form_title_widget.dart';
 import 'package:proyecto_finanzas/view/tir_calculator/widgets/fee_tile_widget.dart';

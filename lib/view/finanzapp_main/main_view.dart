@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
@@ -9,6 +8,7 @@ import 'package:proyecto_finanzas/view/nominal_rate/nominal_rate_view.dart';
 import 'package:proyecto_finanzas/view/see_equivalencies/see_equivalencies_view.dart';
 import 'package:proyecto_finanzas/view/simple_rate/simple_rate_view.dart';
 import 'package:proyecto_finanzas/view/tir_calculator/tir_calculator_view.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainView extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class MainView extends StatefulWidget {
 class _StateMainView extends State<MainView>{
 
   Widget _currentView = Container();
-
+  bool finishInitialLoading = false;
 
   updateStateWithNewView<T>(){
     setState(() {
@@ -40,10 +40,17 @@ class _StateMainView extends State<MainView>{
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+
+    Future.delayed(Duration(milliseconds: 400), (){}).then((_){
+      setState(() {
+        ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+        finishInitialLoading = true;
+      });
+    });
+
     // TODO: implement build
     return SafeArea(
-      child: Scaffold(
+      child: finishInitialLoading? Scaffold(
         appBar: AppBar(
           title: Center(
             child: Text(MainViewStrings.MAIN_TITLE.toUpperCase(), style: FinanzappStyles.titleStyle2,),
@@ -67,6 +74,8 @@ class _StateMainView extends State<MainView>{
         ),
         backgroundColor: FinanzappColorsLightMode.MAIN_BACKGROUND_COLOR,
         body: _currentView,
+      ) : Scaffold(
+        body: Container(),
       ),
     );
   }
