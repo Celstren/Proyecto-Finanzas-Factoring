@@ -54,3 +54,7 @@ class SimpleRateEnum extends BaseEnum {
   static const SimpleRateEnum RATE = const SimpleRateEnum(1, SimpleRateStrings.RATE);
   static const SimpleRateEnum STOCK = const SimpleRateEnum(2, SimpleRateStrings.STOCK);
 }
+
+enum Rate {NOMINAL_RATE, EFFECTIVE_RATE}
+
+enum Periods {DAY, FIFTEEN_DAY, MONTH, TWO_MONTH, THREE_MONTH, FOUR_MONTH, SIX_MONTH, YEAR}

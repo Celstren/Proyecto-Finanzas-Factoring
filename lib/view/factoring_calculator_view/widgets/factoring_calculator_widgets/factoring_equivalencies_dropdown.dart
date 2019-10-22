@@ -5,7 +5,7 @@ import 'package:proyecto_finanzas/helpers/finanzapp_enums.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
 
-class EquivalenciesDropdown extends StatelessWidget {
+class FactoringEquivalenciesDropdown extends StatelessWidget {
   final FinanceDateEnum valueSelected;
   final Function onChange;
 
@@ -20,14 +20,13 @@ class EquivalenciesDropdown extends StatelessWidget {
     FinanceDateEnum.FINANCE_DAY
   ];
 
-  EquivalenciesDropdown({@required this.valueSelected, @required this.onChange}) : assert(valueSelected != null || onChange != null);
+  FactoringEquivalenciesDropdown({@required this.valueSelected, @required this.onChange}) : assert(valueSelected != null || onChange != null);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
       decoration: BoxDecoration(
-//        color: FinanzappColorsLightMode.MAIN_THEME,
       border: Border.all(color: FinanzappColorsLightMode.MAIN_THEME),
         borderRadius: BorderRadius.all(Radius.circular(ScreenUtil.getInstance().setSp(10))),
       ),

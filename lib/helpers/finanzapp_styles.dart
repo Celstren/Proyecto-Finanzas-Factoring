@@ -52,7 +52,7 @@ class FinanzappStyles {
 
   ///Estilo de texto común 4
   ///Color=Blanco
-  ///Tamaño=48sp
+  ///Tamaño=64sp
   ///Fuente=Defecto
   ///Negrita=Defecto
   static TextStyle commonTextStyle4 = TextStyle(fontSize: ScreenUtil.getInstance().setSp(64), color: FinanzappColorsLightMode.TEXT_COLOR_1);
@@ -73,15 +73,36 @@ class FinanzappStyles {
 
   ///Estilo de texto común 7
   ///Color=Azul gris
-  ///Tamaño=36sp
+  ///Tamaño=64sp
   ///Fuente=Defecto
   ///Negrita=Defecto
   static TextStyle commonTextStyle7 = TextStyle(fontSize: ScreenUtil.getInstance().setSp(64), color: FinanzappColorsLightMode.TEXT_COLOR_4, fontWeight: FontWeight.w700);
 
   ///Estilo de texto común 8
   ///Color=Azul gris
-  ///Tamaño=36sp
+  ///Tamaño=64sp
   ///Fuente=Defecto
   ///Negrita=Defecto
   static TextStyle commonTextStyle8 = TextStyle(fontSize: ScreenUtil.getInstance().setSp(64), color: FinanzappColorsLightMode.TEXT_COLOR_4);
+
+  ///Estilo de texto común 9
+  ///Color=Blanco
+  ///Tamaño=48sp
+  ///Fuente=Defecto
+  ///Negrita=Defecto
+  static TextStyle commonTextStyle9 = TextStyle(fontSize: ScreenUtil.getInstance().setSp(48), color: FinanzappColorsLightMode.TEXT_COLOR_1);
+
+  ///Estilo de texto común 10
+  ///Color=Azul Gris
+  ///Tamaño=36sp
+  ///Fuente=Defecto
+  ///Negrita=Defecto
+  static TextStyle commonTextStyle10 = TextStyle(fontSize: ScreenUtil.getInstance().setSp(36), color: FinanzappColorsLightMode.TEXT_COLOR_4);
+
+  ///Estilo de texto común 11
+  ///Color= Gris
+  ///Tamaño=32sp
+  ///Fuente=Defecto
+  ///Negrita=Defecto
+  static TextStyle commonTextStyle11 = TextStyle(fontSize: ScreenUtil.getInstance().setSp(32), color: FinanzappColorsLightMode.BACKGROUND_COLOR_8);
 }
