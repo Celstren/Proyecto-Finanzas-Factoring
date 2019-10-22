@@ -31,79 +31,77 @@ class FactoringCalculatorPage extends StatefulWidget{
 
 class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
 
-//  MoneyMaskedTextController amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",");
-//  MoneyMaskedTextController rateAmountController = MoneyMaskedTextController(rightSymbol: '%', decimalSeparator: ".", thousandSeparator: ",");
-//  TextEditingController capitalizationAmountController = TextEditingController(text: "");
-//  List<CostObject> costs = [];
-//  List<PaymentObject> payments = [];
-//  DateTime startDate = DateTime.now();
-//  DateTime endDate = DateTime.now();
-//  Rate rateSelected = Rate.NOMINAL_RATE;
-//  FinanceDateEnum capitalizationPeriod = FinanceDateEnum.FINANCE_DAY;
-//  FinanceDateEnum ratePeriod = FinanceDateEnum.FINANCE_DAY;
-//  FactoringResultObject resultObject = FactoringResultObject(0, 0, 0, 0, 0, 0);
-  ReceiptObject tempReceiptObject;
+  MoneyMaskedTextController amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",");
+  MoneyMaskedTextController rateAmountController = MoneyMaskedTextController(rightSymbol: '%', decimalSeparator: ".", thousandSeparator: ",");
+  List<CostObject> costs = [];
+  List<PaymentObject> payments = [];
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+  Rate rateSelected = Rate.NOMINAL_RATE;
+  FinanceDateEnum capitalizationPeriod = FinanceDateEnum.FINANCE_DAY;
+  FinanceDateEnum ratePeriod = FinanceDateEnum.FINANCE_DAY;
+  FactoringResultObject resultObject = FactoringResultObject(0, 0, 0, 0, 0, 0);
   bool showResult = false;
 
   updateStartDate(DateTime newStartDate){
     setState(() {
-      tempReceiptObject.discountDate = newStartDate;
+      startDate = newStartDate;
     });
   }
 
   updateEndDate(DateTime newEndDate){
     setState(() {
-      tempReceiptObject.expirationDate = newEndDate;
+      endDate = newEndDate;
     });
   }
 
   updateTypeSelected(Rate newRate){
     setState(() {
-      tempReceiptObject.rateSelected = newRate;
+      rateSelected = newRate;
     });
   }
 
   updateCapitalizationPeriod(FinanceDateEnum newCapitalizationPeriod){
     setState(() {
-      tempReceiptObject.capitalizationPeriod = newCapitalizationPeriod;
+      capitalizationPeriod = newCapitalizationPeriod;
     });
   }
 
   updateRatePeriod(FinanceDateEnum newRatePeriod){
     setState(() {
-      tempReceiptObject.ratePeriod = newRatePeriod;
+      ratePeriod = newRatePeriod;
     });
   }
 
   deleteCostAt(int index){
     setState(() {
-      tempReceiptObject.costs.removeAt(index);
+      costs.removeAt(index);
     });
   }
 
   addCost(){
     setState(() {
-      tempReceiptObject.costs.add(new CostObject(new TextEditingController(), new MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",")));
+      costs.add(new CostObject(new TextEditingController(), new MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",")));
     });
   }
 
   deletePaymentAt(int index){
     setState(() {
-      tempReceiptObject.payments.removeAt(index);
+      payments.removeAt(index);
     });
   }
 
   addPayment(){
     setState(() {
-      tempReceiptObject.payments.add(new PaymentObject(new TextEditingController(), new MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",")));
+      payments.add(new PaymentObject(new TextEditingController(), new MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",")));
     });
   }
 
   bool validateCalculations(){
-    if (tempReceiptObject.expirationDate.difference(tempReceiptObject.discountDate).inDays < 0){
+    if (endDate.difference(startDate).inDays < 0){
       Fluttertoast.showToast(msg: FactoringCalculatorStrings.ERROR_MESSAGE1);
       return false;
-    } else if (tempReceiptObject.rateAmountController.numberValue == 0){
+    } else if (rateAmountController.numberValue == 0){
       Fluttertoast.showToast(msg: FactoringCalculatorStrings.ERROR_MESSAGE2);
       return false;
     }
@@ -112,43 +110,42 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
 
   onCalculateFun(){
     if (validateCalculations()){
-      bool isNominalRate = tempReceiptObject.rateSelected == Rate.NOMINAL_RATE;
+      bool isNominalRate = rateSelected == Rate.NOMINAL_RATE;
       if (isNominalRate){
 
 
-        double capitalizationDays =  FinanceDateEnum.getFinanceDateFromId(1, tempReceiptObject.capitalizationPeriod.id).toFinanceDay(isExact: false).value;
+        double capitalizationDays =  FinanceDateEnum.getFinanceDateFromId(1, capitalizationPeriod.id).toFinanceDay(isExact: false).value;
         //Day Net difference
         //int difDays = endDate.difference(startDate).inDays;
 
-        int difDays = peruStandardDaysDifferenceConversion(tempReceiptObject.discountDate, tempReceiptObject.expirationDate);
+        int difDays = peruStandardDaysDifferenceConversion(startDate, endDate);
 
-        double m = FinanceDateEnum.getFinanceDateFromId(1, tempReceiptObject.ratePeriod.id).toFinanceDay(isExact: false).value / capitalizationDays;
+        double m = FinanceDateEnum.getFinanceDateFromId(1, ratePeriod.id).toFinanceDay(isExact: false).value / capitalizationDays;
         double n = difDays / capitalizationDays;
 
 
-        tempReceiptObject.factoringResultObject = calculateResults(tempReceiptObject.costs, tempReceiptObject.payments, tempReceiptObject.rateAmountController.numberValue / 100, m, n, isNominalRate, tempReceiptObject.amountTextEditingController.numberValue, difDays);
+        resultObject = calculateResults(costs, payments, rateAmountController.numberValue / 100, m, n, isNominalRate, amountTextEditingController.numberValue, difDays);
       } else {
         //Day Net difference
         //int difDays = endDate.difference(startDate).inDays;
 
-        int difDays = peruStandardDaysDifferenceConversion(tempReceiptObject.discountDate, tempReceiptObject.expirationDate);
+        int difDays = peruStandardDaysDifferenceConversion(startDate, endDate);
 
-        double m = FinanceDateEnum.getFinanceDateFromId(1, tempReceiptObject.ratePeriod.id).toFinanceDay(isExact: false).value;
+        double m = FinanceDateEnum.getFinanceDateFromId(1, ratePeriod.id).toFinanceDay(isExact: false).value;
 
-        tempReceiptObject.factoringResultObject = calculateResults(tempReceiptObject.costs, tempReceiptObject.payments, tempReceiptObject.rateAmountController.numberValue / 100, m, 1.0, isNominalRate, tempReceiptObject.amountTextEditingController.numberValue, difDays);
+        resultObject = calculateResults(costs, payments, rateAmountController.numberValue / 100, m, 1.0, isNominalRate, amountTextEditingController.numberValue, difDays);
       }
-//      widget.receiptObject.amount = amountTextEditingController.numberValue;
-//      widget.receiptObject.factoringResultObject = resultObject;
-//      widget.receiptObject.discountDate = startDate;
-//      widget.receiptObject.expirationDate = endDate;
-//      widget.receiptObject.amountTextEditingController = amountTextEditingController;
-//      widget.receiptObject.rateAmountController = rateAmountController;
-//      widget.receiptObject.capitalizationAmountController = capitalizationAmountController;
-//      widget.receiptObject.costs = costs;
-//      widget.receiptObject.payments = payments;
-//      widget.receiptObject.rateSelected = rateSelected;
-//      widget.receiptObject.capitalizationPeriod = capitalizationPeriod;
-//      widget.receiptObject.ratePeriod = ratePeriod;
+      widget.receiptObject.amount = amountTextEditingController.numberValue;
+      widget.receiptObject.factoringResultObject = resultObject;
+      widget.receiptObject.discountDate = startDate;
+      widget.receiptObject.expirationDate = endDate;
+      widget.receiptObject.amountTextEditingController = amountTextEditingController;
+      widget.receiptObject.rateAmountController = rateAmountController;
+      widget.receiptObject.costs = costs;
+      widget.receiptObject.payments = payments;
+      widget.receiptObject.rateSelected = rateSelected;
+      widget.receiptObject.capitalizationPeriod = capitalizationPeriod;
+      widget.receiptObject.ratePeriod = ratePeriod;
 
       updateCalculator(true);
     }
@@ -156,17 +153,16 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
 
   onClearFun(){
     setState(() {
-//      amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",");
-//      rateAmountController = MoneyMaskedTextController(rightSymbol: '%', decimalSeparator: ".", thousandSeparator: ",");
-//      capitalizationAmountController = TextEditingController(text: "");
-//      costs = [];
-//      payments = [];
-//      startDate = DateTime.now();
-//      endDate = DateTime.now();
-//      rateSelected = Rate.NOMINAL_RATE;
-//      capitalizationPeriod = FinanceDateEnum.FINANCE_DAY;
-//      ratePeriod = FinanceDateEnum.FINANCE_DAY;
-//      resultObject =
+      amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",");
+      rateAmountController = MoneyMaskedTextController(rightSymbol: '%', decimalSeparator: ".", thousandSeparator: ",");
+      costs = [];
+      payments = [];
+      startDate = DateTime.now();
+      endDate = DateTime.now();
+      rateSelected = Rate.NOMINAL_RATE;
+      capitalizationPeriod = FinanceDateEnum.FINANCE_DAY;
+      ratePeriod = FinanceDateEnum.FINANCE_DAY;
+      resultObject = null;
       widget.receiptObject.clear();
     });
   }
@@ -181,19 +177,20 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    tempReceiptObject.receiptName = widget.receiptObject.receiptName;
-    tempReceiptObject.amount = widget.receiptObject.amount;
-    tempReceiptObject.expirationDate = widget.receiptObject.expirationDate;
-    tempReceiptObject.discountDate = widget.receiptObject.discountDate;
-    tempReceiptObject.factoringResultObject = widget.receiptObject.factoringResultObject;
-    tempReceiptObject.amountTextEditingController = widget.receiptObject.amountTextEditingController;
-    tempReceiptObject.rateAmountController = widget.receiptObject.rateAmountController;
-    tempReceiptObject.capitalizationAmountController = widget.receiptObject.capitalizationAmountController;
-    tempReceiptObject.costs = widget.receiptObject.costs;
-    tempReceiptObject.payments = widget.receiptObject.payments;
-    tempReceiptObject.rateSelected = widget.receiptObject.rateSelected;
-    tempReceiptObject.capitalizationPeriod = widget.receiptObject.capitalizationPeriod;
-    tempReceiptObject.ratePeriod = widget.receiptObject.ratePeriod;
+    endDate = widget.receiptObject.expirationDate;
+    startDate = widget.receiptObject.discountDate;
+    resultObject = widget.receiptObject.factoringResultObject;
+    rateSelected = widget.receiptObject.rateSelected;
+    capitalizationPeriod = widget.receiptObject.capitalizationPeriod;
+    ratePeriod = widget.receiptObject.ratePeriod;
+    amountTextEditingController.updateValue(widget.receiptObject.amountTextEditingController.numberValue);
+    rateAmountController.updateValue(widget.receiptObject.rateAmountController.numberValue);
+    widget.receiptObject.costs.forEach((cost){
+      costs.add(cost);
+    });
+    widget.receiptObject.payments.forEach((payment){
+      payments.add(payment);
+    });
   }
 
   @override
@@ -204,23 +201,23 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
         child: Column(
           children: <Widget>[
             FactoringDividerWidget(text: FactoringCalculatorStrings.AMOUNT,),
-            AmountWidget(controller: tempReceiptObject.amountTextEditingController,),
+            AmountWidget(controller: amountTextEditingController,),
             FactoringDividerWidget(text: FactoringCalculatorStrings.TIME,),
-            DatePickerWidget(date: tempReceiptObject.discountDate, title: FactoringCalculatorStrings.START_DATE, updateDate: updateStartDate,),
-            DatePickerWidget(date: tempReceiptObject.expirationDate, title: FactoringCalculatorStrings.END_DATE, updateDate: updateEndDate,),
-            CalculatedTimeWidget(daysAmount: tempReceiptObject.expirationDate.difference(tempReceiptObject.discountDate).inDays,),
+            DatePickerWidget(date: startDate, title: FactoringCalculatorStrings.START_DATE, updateDate: updateStartDate,),
+            DatePickerWidget(date: endDate, title: FactoringCalculatorStrings.END_DATE, updateDate: updateEndDate,),
+            CalculatedTimeWidget(daysAmount: endDate.difference(startDate).inDays,),
             FactoringDividerWidget(text: FactoringCalculatorStrings.RATE,),
-            RateTypeOptionsWidget(typeSelected: tempReceiptObject.rateSelected, updateTypeSelected: updateTypeSelected,),
-            RateWidget(rate: tempReceiptObject.rateSelected, rateAmountController: tempReceiptObject.rateAmountController, capitalizationPeriod: tempReceiptObject.capitalizationPeriod, ratePeriod: tempReceiptObject.ratePeriod, onCapitalizationChange: updateCapitalizationPeriod, onRateChange: updateRatePeriod,),
+            RateTypeOptionsWidget(typeSelected: rateSelected, updateTypeSelected: updateTypeSelected,),
+            RateWidget(rate: rateSelected, rateAmountController: rateAmountController, capitalizationPeriod: capitalizationPeriod, ratePeriod: ratePeriod, onCapitalizationChange: updateCapitalizationPeriod, onRateChange: updateRatePeriod,),
             FactoringDividerWidget(text: FactoringCalculatorStrings.COSTS,),
-            CostsWidget(costs: tempReceiptObject.costs, onAddFun: addCost, onDeleteFun: deleteCostAt,),
+            CostsWidget(costs: costs, onAddFun: addCost, onDeleteFun: deleteCostAt,),
             FactoringDividerWidget(text: FactoringCalculatorStrings.PAYMENTS,),
-            PaymentsWidget(payments: tempReceiptObject.payments, onAddFun: addPayment, onDeleteFun: deletePaymentAt,),
+            PaymentsWidget(payments: payments, onAddFun: addPayment, onDeleteFun: deletePaymentAt,),
             FactoringCalculatorButtonsWidget(onCalculateFun: onCalculateFun, onClearFun: onClearFun,),
           ],
         ),
       ),
-    ) : FactoringResultPage(resultObject: tempReceiptObject.factoringResultObject, goBackFun: updateCalculator,);
+    ) : FactoringResultPage(resultObject: resultObject, goBackFun: updateCalculator,);
   }
 
 }

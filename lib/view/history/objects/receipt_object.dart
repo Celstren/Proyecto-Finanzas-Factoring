@@ -11,7 +11,6 @@ class ReceiptObject {
   FactoringResultObject factoringResultObject = FactoringResultObject(0, 0, 0, 0, 0, 0);
   MoneyMaskedTextController amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",");
   MoneyMaskedTextController rateAmountController = MoneyMaskedTextController(rightSymbol: '%', decimalSeparator: ".", thousandSeparator: ",");
-  TextEditingController capitalizationAmountController = TextEditingController(text: "");
   List<CostObject> costs = [];
   List<PaymentObject> payments = [];
   Rate rateSelected = Rate.EFFECTIVE_RATE;
@@ -24,7 +23,6 @@ class ReceiptObject {
     factoringResultObject = FactoringResultObject(0, 0, 0, 0, 0, 0);
     amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",");
     rateAmountController = MoneyMaskedTextController(rightSymbol: '%', decimalSeparator: ".", thousandSeparator: ",");
-    capitalizationAmountController = TextEditingController(text: "");
     costs = [];
     payments = [];
   }
