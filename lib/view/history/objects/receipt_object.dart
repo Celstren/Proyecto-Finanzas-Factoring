@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_enums.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/objects/factoring_objects.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class ReceiptObject {
-  TextEditingController receiptName;
+  int index;
   double amount;
   DateTime expirationDate;
   DateTime discountDate;
@@ -17,7 +16,7 @@ class ReceiptObject {
   FinanceDateEnum capitalizationPeriod = FinanceDateEnum.FINANCE_DAY;
   FinanceDateEnum ratePeriod = FinanceDateEnum.FINANCE_DAY;
 
-  ReceiptObject(this.receiptName, this.amount, this.expirationDate, this.discountDate);
+  ReceiptObject(this.index, this.amount, this.expirationDate, this.discountDate);
 
   clear(){
     factoringResultObject = FactoringResultObject(0, 0, 0, 0, 0, 0);

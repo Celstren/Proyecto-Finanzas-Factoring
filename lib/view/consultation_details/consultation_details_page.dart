@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
 import 'package:proyecto_finanzas/view/consultation_details/widgets/consultation_tile_widget.dart';
+import 'package:proyecto_finanzas/view/consultation_details/widgets/tir_widget.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/factoring_calculator_page.dart';
 import 'package:proyecto_finanzas/view/history/objects/consultation_object.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
@@ -40,6 +41,12 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    double totalAmount = 0;
+
+    widget.consultationObjectSelected.receiptObjects.forEach((receipt){
+      totalAmount += receipt.amount;
+    });
+
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +58,12 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
       body: SingleChildScrollView(
         child: Container(
           child: Column(
-            children: List.generate(widget.consultationObjectSelected.receiptObjects.length, (index) => ConsultationTileWidget(receiptObject: widget.consultationObjectSelected.receiptObjects[index], selectReceiptObject: selectReceiptObject,)),
+            children: <Widget>[
+              TIRWidget(totalAmount: totalAmount, receipts: widget.consultationObjectSelected.receiptObjects,),
+              Column(
+                children: List.generate(widget.consultationObjectSelected.receiptObjects.length, (index) => ConsultationTileWidget(receiptObject: widget.consultationObjectSelected.receiptObjects[index], selectReceiptObject: selectReceiptObject,)),
+              ),
+            ],
           ),
         ),
       ),
@@ -60,7 +72,7 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
             setState(() {
               widget.addReceipt(
                 widget.index,
-                new ReceiptObject(new TextEditingController(text: "Recibo por Honorario N°3"), 0, DateTime.now(), DateTime.now(),),
+                new ReceiptObject(widget.consultationObjectSelected.receiptObjects.length + 1, 0, DateTime.now(), DateTime.now(),),
               );
             });
           },

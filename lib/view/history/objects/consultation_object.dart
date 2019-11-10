@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:proyecto_finanzas/view/history/objects/receipt_object.dart';
 
 class ConsultationObject {
-  final TextEditingController consultationName;
-  final int factoringCalculationQuantity;
-  final DateTime date;
-  final List<ReceiptObject> receiptObjects;
+  DateTime date;
+  String descripcion;
+  double importeActual;
+  double tir;
+  List<ReceiptObject> receiptObjects;
 
-  ConsultationObject(this.consultationName, this.factoringCalculationQuantity, this.date, this.receiptObjects,);
+  ConsultationObject(this.date, this.receiptObjects, this.descripcion, this.importeActual, this.tir,);
 }

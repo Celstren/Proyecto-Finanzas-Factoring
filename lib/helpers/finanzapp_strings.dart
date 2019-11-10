@@ -5,6 +5,8 @@ class MainViewStrings {
 
   static const String MAIN_TITLE = "Finanzapp";
   static const String HISTORY = "Historial";
+  static const String CALCULATOR = "Calculadora";
+  static const String SETTINGS = "Configuración";
   static const String MAIN_PAGE = "Página Principal";
 
   //Finance Strings
@@ -213,6 +215,15 @@ class TIRCalculatorStrings {
 class HistoryStrings {
   static const String NUMBER_OF_FACTORING_CALCULATIONS = "Número de recibos por honorarios: ";
   static const String DATE = "Fecha: ";
+  static const String NAME_OF_CONSULTATION = "Consulta N°";
+
+  static const String HISTORY_DIALOG_DESCRIPTION = "Descripción:";
+  static const String HISTORY_DIALOG_DESCRIPTION_HINT = "Añada una descripción";
+  static const String HISTORY_DIALOG_SAVE = "Guardar";
+  static const String HISTORY_DIALOG_ADD = "Añadir";
+  static const String HISTORY_DIALOG_DELETE = "Eliminar";
+
+  static const String GET_ALL_CARTERAS_FAILED_ERROR_MESSAGE = "Hubo un error al obtener el registro de carteras";
 }
 
 class CalculationDetailsString {
@@ -222,4 +233,62 @@ class CalculationDetailsString {
   static const String DISCOUNT_DATE = "Fecha de Descuento: ";
   static const String RATE = "Tasa: ";
   static const String INTERNAL_RATE_RETURN = "Tasa Interna de Retorno(TIR): ";
+  static const String NAME_OF_RECEIPT = "Recibo N°";
+}
+
+class SignInStrings {
+  static const String TITLE = "Recibos por Honorarios Factoring";
+  static const String EMAIL_HINT = "Correo";
+  static const String PASSWORD_HINT = "Contraseña";
+  static const String FORGET_PASSWORD = "¿Olvidaste tu contraseña?";
+  static const String SIGN_IN = "Ingresar";
+  static const String NO_MEMBER = "¿No tienes una cuenta?";
+  static const String REGISTER = "Regístrate";
+
+  static const String MAIL_EMPTY_ERROR_MESSAGE = "Debe completar el campo correo";
+  static const String PASSWORD_EMPTY_ERROR_MESSAGE = "Debe completar el campo contraseña";
+  static const String WRONG_CREDENTIALS_ERROR_MESSAGE = "Las credenciales ingresadas son incorrectas";
+  static const String NO_USER_FOUND_ERROR_MESSAGE = "No se pudo encontrar un usuario registrado";
+  static const String LOGIN_SUCCESS_MESSAGE = "Credenciales verficadas con éxito";
+}
+
+class RegisterStrings {
+  static const NEW_ACCOUNT = "Nueva Cuenta";
+  static const FIRST_NAME_HINT = "Nombres";
+  static const LAST_NAME_HINT = "Apellidos";
+  static const IDENTIFICATION_HINT = "D.N.I.";
+  static const MAIL_HINT = "Correo";
+  static const PASSWORD_HINT = "Contraseña";
+  static const COMPANY_NAME_HINT = "Nombre de Empresa";
+  static const REGISTER = "Registrar";
+}
+
+class DrawerStrings {
+  static const HISTORY = "Historial";
+  static const CALCULATOR = "Calculadora";
+  static const SETTINGS = "Configuración";
+  static const LOGOUT = "Cerrar Sesión";
+
+  //temporal data
+  static const TEMP_NAME = "Luiggi Minaya Salcedo";
+  static const TEMP_MAIL = "luiggi.minaya@gmail.com";
+}
+
+class SettingsStrings {
+  static const TEMP_FIRST_NAME = "Luiggi Daniel";
+  static const TEMP_LAST_NAME = "Minaya Salcedo";
+  static const TEMP_MAIL = "luiggi.minaya@gmail.com";
+
+  static const TEMP_FIRST_NAME_HINT = "Nombres";
+  static const TEMP_LAST_NAME_HINT = "Apellidos";
+  static const TEMP_MAIL_HINT = "usuario@mail.com";
+
+  static const DOLLAR_CURRENCIES = "Dólares";
+  static const PEN_CURRENCIES = "Soles";
+
+  static const SAVE = "Guardar";
+
+  static const LAST_UPDATE = "Última actualización: ";
+
+  static const ENABLE_PERU_STANDARD = "Habilitar calendario del Perú: ";
 }

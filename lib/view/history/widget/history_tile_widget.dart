@@ -10,15 +10,19 @@ class HistoryTileWidget extends StatelessWidget {
 
   final ConsultationObject consultationObject;
   final Function selectConsultationObject;
+  final Function displayCarteraDialog;
   final int index;
 
-  const HistoryTileWidget({Key key, this.consultationObject, this.selectConsultationObject, this.index}) : super(key: key);
+  const HistoryTileWidget({Key key, this.consultationObject, this.selectConsultationObject, this.displayCarteraDialog, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return GestureDetector(
-      onTap: () => selectConsultationObject(consultationObject, index),
+//      onTap: () => selectConsultationObject(consultationObject, index),
+      onTap: (){
+        print("Tap");
+      },
       child: Container(
         height: ScreenUtil.getInstance().setHeight(300),
         padding: EdgeInsets.symmetric(horizontal: ScreenUtil.getInstance().setWidth(50)),
@@ -34,10 +38,11 @@ class HistoryTileWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    child: Text(consultationObject.consultationName.value.text, style: FinanzappStyles.commonTextStyle3,),
+//                    child: Text("${HistoryStrings.NAME_OF_CONSULTATION}${consultationObject.index}", style: FinanzappStyles.commonTextStyle3,),
+                    child: Text(consultationObject.descripcion, style: FinanzappStyles.commonTextStyle3,),
                   ),
                   Container(
-                    child: Text("${HistoryStrings.NUMBER_OF_FACTORING_CALCULATIONS}${consultationObject.factoringCalculationQuantity}", style: FinanzappStyles.commonTextStyle1,),
+                    child: Text("${HistoryStrings.NUMBER_OF_FACTORING_CALCULATIONS}${consultationObject.receiptObjects.length}", style: FinanzappStyles.commonTextStyle1,),
                   ),
                   Container(
                     child: Text("${HistoryStrings.DATE}${DateFormat("dd/MM/yyyy - hh:mm aa").format(consultationObject.date)}", style: FinanzappStyles.commonTextStyle11,),
@@ -46,7 +51,20 @@ class HistoryTileWidget extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: ScreenUtil.getInstance().setWidth(50)),
-                child: Icon(Icons.arrow_forward_ios, size: ScreenUtil.getInstance().setSp(40),),
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () => displayCarteraDialog(true, index: index, consultationObject: consultationObject),
+                      child: Container(
+                        padding: EdgeInsets.only(right: ScreenUtil.getInstance().setWidth(50)),
+                        child: Icon(Icons.edit, size: ScreenUtil.getInstance().setSp(40),),
+                      ),
+                    ),
+                    Container(
+                      child: Icon(Icons.arrow_forward_ios, size: ScreenUtil.getInstance().setSp(40),),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

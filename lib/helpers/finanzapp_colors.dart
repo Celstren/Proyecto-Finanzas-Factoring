@@ -52,4 +52,7 @@ class FinanzappColorsLightMode {
 
   ///Color de fondo gris
   static const Color BACKGROUND_COLOR_8 = Colors.grey;
+
+  ///Color de fondo gris claro
+  static const Color BACKGROUND_COLOR_9 = Colors.white70;
 }
