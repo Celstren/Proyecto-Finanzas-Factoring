@@ -32,7 +32,7 @@ class ConsultationTileWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    child: Text("${CalculationDetailsString.NAME_OF_RECEIPT}${receiptObject.index}", style: FinanzappStyles.commonTextStyle3,),
+                    child: Text(receiptObject.descripcion, style: FinanzappStyles.commonTextStyle3,),
                   ),
                   Container(
                     width: ScreenUtil.getInstance().setWidth(600),

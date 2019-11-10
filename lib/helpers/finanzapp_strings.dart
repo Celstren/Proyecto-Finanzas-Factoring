@@ -224,6 +224,12 @@ class HistoryStrings {
   static const String HISTORY_DIALOG_DELETE = "Eliminar";
 
   static const String GET_ALL_CARTERAS_FAILED_ERROR_MESSAGE = "Hubo un error al obtener el registro de carteras";
+  static const String SAVE_CARTERA_FAILED_ERROR_MESSAGE = "Hubo un error al añadir cartera";
+  static const String SAVE_CARTERA_SUCCESS_MESSAGE = "La cartera se añadió con éxito";
+  static const String UPDATE_CARTERA_SUCCESS_MESSAGE = "La cartera se actualizó con éxito";
+  static const String UPDATE_CARTERA_FAILED_ERROR_MESSAGE = "Hubo un error al actualizar la cartera";
+  static const String DELETE_CARTERA_SUCCESS_MESSAGE = "Cartera eliminada correctamente";
+  static const String DELETE_CARTERA_FAILED_ERROR_MESSAGE = "Hubo un error al eliminar la cartera";
 }
 
 class CalculationDetailsString {
@@ -234,6 +240,8 @@ class CalculationDetailsString {
   static const String RATE = "Tasa: ";
   static const String INTERNAL_RATE_RETURN = "Tasa Interna de Retorno(TIR): ";
   static const String NAME_OF_RECEIPT = "Recibo N°";
+  static const String RECIBO_DIALOG_DESCRIPTION = "Descripción:";
+  static const String RECIBO_DIALOG_DESCRIPTION_HINT = "Añada descripción";
 }
 
 class SignInStrings {

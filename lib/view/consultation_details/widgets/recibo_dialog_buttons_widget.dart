@@ -3,28 +3,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
-import 'package:proyecto_finanzas/model/data_base/cartera_model/cartera.dart';
-import 'package:proyecto_finanzas/model/data_base/cartera_model/cartera_request.dart';
-import 'package:proyecto_finanzas/model/data_base/shared_preference_data.dart';
+import 'package:proyecto_finanzas/view/history/objects/receipt_object.dart';
 
-class CarteraDialogButtonsWidget extends StatefulWidget {
+class ReciboDialogButtonsWidget extends StatefulWidget {
   final bool alreadyRegistered;
   final Function updateCarteras;
-  final Cartera consultationObject;
+  final ReceiptObject recibo;
   final TextEditingController descriptionController;
 
-  const CarteraDialogButtonsWidget(this.alreadyRegistered, this.updateCarteras, this.consultationObject, this.descriptionController);
+  const ReciboDialogButtonsWidget(this.alreadyRegistered, this.updateCarteras, this.recibo, this.descriptionController);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _CarteraDialogButtonsWidgetState();
+    return _ReciboDialogButtonsWidgetState();
   }
 }
 
-class _CarteraDialogButtonsWidgetState extends State<CarteraDialogButtonsWidget>{
+class _ReciboDialogButtonsWidgetState extends State<ReciboDialogButtonsWidget>{
 
-  Cartera cartera = new Cartera();
+  ReceiptObject cartera;
   bool isLoading = false;
 
   updateLoadingStatus(bool newStatus){
@@ -37,15 +35,6 @@ class _CarteraDialogButtonsWidgetState extends State<CarteraDialogButtonsWidget>
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.consultationObject != null && widget.consultationObject.id != null){
-      cartera.id = widget.consultationObject.id;
-      cartera.descripcion = widget.consultationObject.descripcion;
-      cartera.importeActual = widget.consultationObject.importeActual;
-      cartera.tir = widget.consultationObject.tir;
-      cartera.date = widget.consultationObject.date;
-      cartera.cantidadRecibos = widget.consultationObject.cantidadRecibos;
-      cartera.usuario = widget.consultationObject.usuario;
-    }
   }
 
   @override
@@ -59,17 +48,7 @@ class _CarteraDialogButtonsWidgetState extends State<CarteraDialogButtonsWidget>
         children: <Widget>[
           GestureDetector(
             onTap: (){
-              if (!isLoading){
-                updateLoadingStatus(true);
-                cartera.descripcion = widget.descriptionController.value.text;
-                CarteraRequest.carteraRequestUpdateCartera(cartera).then((success){
-                  if (success){
-                    widget.updateCarteras();
-                    Navigator.pop(context);
-                  }
-                  updateLoadingStatus(false);
-                });
-              }
+              print("SAVE");
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: ScreenUtil.getInstance().setHeight(30)),
@@ -92,16 +71,7 @@ class _CarteraDialogButtonsWidgetState extends State<CarteraDialogButtonsWidget>
           ),
           GestureDetector(
             onTap: () {
-              if (!isLoading){
-                updateLoadingStatus(true);
-                CarteraRequest.carteraRequestDeleteCartera(cartera.id).then((success){
-                  if (success){
-                    widget.updateCarteras();
-                    Navigator.pop(context);
-                  }
-                  updateLoadingStatus(false);
-                });
-              }
+              print("DELETE");
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: ScreenUtil.getInstance().setHeight(30)),
@@ -126,19 +96,7 @@ class _CarteraDialogButtonsWidgetState extends State<CarteraDialogButtonsWidget>
       ) : Center(
         child: GestureDetector(
           onTap: (){
-            if (!isLoading){
-              updateLoadingStatus(true);
-              SharedPreferenceData.getUser().then((user){
-                cartera = new Cartera(descripcion: widget.descriptionController.value.text, date: DateTime.now(), cantidadRecibos: 0, usuario: user.usuario, importeActual: 0, tir: 0);
-                CarteraRequest.carteraRequestAddNewCartera(cartera).then((success){
-                  if (success){
-                    widget.updateCarteras();
-                    Navigator.pop(context);
-                  }
-                  updateLoadingStatus(false);
-                });
-              });
-            }
+            print("ADD");
           },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: ScreenUtil.getInstance().setHeight(30)),

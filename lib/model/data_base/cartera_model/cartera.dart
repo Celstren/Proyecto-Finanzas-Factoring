@@ -36,11 +36,10 @@ class Cartera {
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
     "descripcion": descripcion,
-    "importe_actual": importeActual,
-    "tir": tir,
-    "usuario": usuario,
+    "importe_actual": importeActual.toString(),
+    "tir": tir.toString(),
+    "usuario": usuario.toString(),
   };
 
   static Map<String, dynamic> toGetAllRequest(int userId) => {

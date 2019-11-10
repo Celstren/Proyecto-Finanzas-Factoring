@@ -1,38 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:proyecto_finanzas/view/consultation_details/widgets/recibo_dialog_buttons_widget.dart';
+import 'package:proyecto_finanzas/view/consultation_details/widgets/recibo_dialog_textfield_widget.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
-import 'package:proyecto_finanzas/model/data_base/cartera_model/cartera.dart';
+import 'package:proyecto_finanzas/view/history/objects/receipt_object.dart';
 
-import 'cartera_dialog_buttons_widget.dart';
-import 'cartera_dialog_textfield_widget.dart';
-
-class CarteraDialogWidget extends StatefulWidget {
+class ReciboDialogWidget extends StatefulWidget {
   final bool alreadyRegistered;
-  final Function updateCarteras;
-  final int index;
-  final Cartera consultationObject;
+  final Function updateRecibos;
+  final ReceiptObject recibo;
 
-  const CarteraDialogWidget(this.alreadyRegistered, this.updateCarteras, {this.index = -1, this.consultationObject});
+  const ReciboDialogWidget(this.alreadyRegistered, this.updateRecibos, {this.recibo});
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _CarteraDialogWidgetState();
+    return _ReciboDialogWidgetState();
   }
 
 }
 
-class _CarteraDialogWidgetState extends State<CarteraDialogWidget> {
+class _ReciboDialogWidgetState extends State<ReciboDialogWidget> {
   TextEditingController descriptionController = TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (widget.alreadyRegistered){
-      descriptionController = TextEditingController(text: widget.consultationObject.descripcion);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,15 +50,14 @@ class _CarteraDialogWidgetState extends State<CarteraDialogWidget> {
         ),
       ),
       content: Container(
-//        height: ScreenUtil.getInstance().setHeight(900),
         width: ScreenUtil.getInstance().setWidth(900),
         padding: EdgeInsets.symmetric(horizontal: ScreenUtil.getInstance().setWidth(20), vertical: ScreenUtil.getInstance().setHeight(20)),
         child: SingleChildScrollView(
           child: Container(
             child: Column(
               children: <Widget>[
-                CarteraDialogTextFieldWidget(descriptionController, HistoryStrings.HISTORY_DIALOG_DESCRIPTION, HistoryStrings.HISTORY_DIALOG_DESCRIPTION_HINT),
-                CarteraDialogButtonsWidget(widget.alreadyRegistered, widget.updateCarteras, widget.consultationObject, descriptionController),
+                ReciboDialogTextFieldWidget(descriptionController, CalculationDetailsString.RECIBO_DIALOG_DESCRIPTION, CalculationDetailsString.RECIBO_DIALOG_DESCRIPTION_HINT),
+                ReciboDialogButtonsWidget(widget.alreadyRegistered, widget.updateRecibos, widget.recibo, descriptionController),
               ],
             ),
           ),

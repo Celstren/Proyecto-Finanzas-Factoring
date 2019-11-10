@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
-import 'package:proyecto_finanzas/view/history/objects/consultation_object.dart';
+import 'package:proyecto_finanzas/model/data_base/cartera_model/cartera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 class HistoryTileWidget extends StatelessWidget {
 
-  final ConsultationObject consultationObject;
+  final Cartera consultationObject;
   final Function selectConsultationObject;
   final Function displayCarteraDialog;
   final int index;
@@ -19,10 +19,7 @@ class HistoryTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return GestureDetector(
-//      onTap: () => selectConsultationObject(consultationObject, index),
-      onTap: (){
-        print("Tap");
-      },
+      onTap: () => selectConsultationObject(consultationObject),
       child: Container(
         height: ScreenUtil.getInstance().setHeight(300),
         padding: EdgeInsets.symmetric(horizontal: ScreenUtil.getInstance().setWidth(50)),
@@ -42,10 +39,10 @@ class HistoryTileWidget extends StatelessWidget {
                     child: Text(consultationObject.descripcion, style: FinanzappStyles.commonTextStyle3,),
                   ),
                   Container(
-                    child: Text("${HistoryStrings.NUMBER_OF_FACTORING_CALCULATIONS}${consultationObject.receiptObjects.length}", style: FinanzappStyles.commonTextStyle1,),
+                    child: Text("${HistoryStrings.NUMBER_OF_FACTORING_CALCULATIONS}${consultationObject.cantidadRecibos != null? consultationObject.cantidadRecibos : 0}", style: FinanzappStyles.commonTextStyle1,),
                   ),
                   Container(
-                    child: Text("${HistoryStrings.DATE}${DateFormat("dd/MM/yyyy - hh:mm aa").format(consultationObject.date)}", style: FinanzappStyles.commonTextStyle11,),
+                    child: Text("${HistoryStrings.DATE}${DateFormat("dd/MM/yyyy - hh:mm aa").format(consultationObject.date != null? consultationObject.date : DateTime.now())}", style: FinanzappStyles.commonTextStyle11,),
                   ),
                 ],
               ),
