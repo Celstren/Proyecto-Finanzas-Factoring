@@ -57,7 +57,7 @@ class _StateMainView extends State<MainView>{
           appBarTitle = MainViewStrings.CALCULATOR;
           _currentView = TIRCalculatorView();
         } else if (T == FactoringCalculatorPage){
-          _currentView = FactoringCalculatorPage(receiptObject: new ReceiptObject(0, 0, DateTime.now(), DateTime.now(),),);
+          _currentView = FactoringCalculatorPage(receiptObject: new ReceiptObject(0, 0, DateTime.now(), DateTime.now(), "", 0),);
         } else if (T == SettingsView){
           appBarTitle = MainViewStrings.SETTINGS;
           _currentView = SettingsView();

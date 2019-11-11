@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_finanzas/helpers/finanzapp_enums.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
 import 'package:proyecto_finanzas/model/data_base/cartera_model/cartera.dart';
-import 'package:proyecto_finanzas/model/data_base/recibo_model/recibo_request.dart';
+import 'package:proyecto_finanzas/model/data_base/shared_preference_data.dart';
 import 'package:proyecto_finanzas/view/consultation_details/widgets/consultation_tile_widget.dart';
-import 'package:proyecto_finanzas/view/consultation_details/widgets/recibo_dialog_widget.dart';
 import 'package:proyecto_finanzas/view/consultation_details/widgets/tir_widget.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/factoring_calculator_page.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
@@ -27,6 +25,8 @@ class ConsultationDetailsPage extends StatefulWidget {
 class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
   List<ReceiptObject> recibos = [];
   bool isLoading = false;
+  int yearDates = 360;
+  int currencyType = 0;
 
   selectReceiptObject(ReceiptObject receiptObject){
     Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -36,51 +36,51 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
             child: Text(FactoringCalculatorStrings.TITLE.toUpperCase(), style: FinanzappStyles.titleStyle2,),
           ),
         ),
-        body: FactoringCalculatorPage(receiptObject: receiptObject,),
+        body: FactoringCalculatorPage(receiptObject: receiptObject, currentType: currencyType,),
       );
     }),);
-  }
-
-  updateLoadingState(bool newLoadingState){
-    setState(() {
-      isLoading = newLoadingState;
-    });
-  }
-
-  updateRecibos(){
-    updateLoadingState(true);
-    ReciboRequest.reciboRequestGetAllByCarteraId(widget.carteraSelected.id).then((result){
-      for (int i = 0; i < result.length; i++){
-        ReceiptObject obj = new ReceiptObject.fromRecibo(result[i], i);
-        recibos.add(obj);
-      }
-      updateLoadingState(false);
-    });
-  }
-
-  displayReciboDialog(bool alreadyRegistered){
-    showDialog(
-        context: context,
-      builder: (context){
-          return ReciboDialogWidget(alreadyRegistered, updateRecibos);
-      },
-    );
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    updateRecibos();
+    setInitialData();
+
+  }
+
+  setInitialData(){
+    SharedPreferenceData.getYearDates().then((_yearDates){
+      if (mounted){
+        setState(() {
+          yearDates = _yearDates != null? _yearDates : 360;
+        });
+      }
+    });
+  }
+
+  updateCurrencyType(){
+    setState(() {
+      setState(() {
+        if (currencyType == 0){
+          currencyType = 1;
+        }else {
+          currencyType = 0;
+        }
+        recibos.forEach((recibo){
+          recibo = recibo.updateCurrency(currencyType);
+        });
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     double totalAmount = 0;
 
-//    widget.consultationObjectSelected.receiptObjects.forEach((receipt){
-//      totalAmount += receipt.amount;
-//    });
+    recibos.forEach((receipt){
+      totalAmount += receipt.amount;
+    });
 
     // TODO: implement build
     return Scaffold(
@@ -88,6 +88,19 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
         title: Center(
           child: Text(CalculationDetailsString.TITLE.toUpperCase(), style: FinanzappStyles.titleStyle2,),
         ),
+        actions: <Widget>[
+          Container(
+            height: ScreenUtil.getInstance().setHeight(10),
+            width: ScreenUtil.getInstance().setWidth(150),
+            child: Center(
+              child: GestureDetector(
+                onTap: () => updateCurrencyType(),
+                child: Icon(currencyType == 1? Icons.money_off : Icons.attach_money, size: ScreenUtil.getInstance().setSp(60),
+              ),
+              ),
+            ),
+          ),
+        ],
       ),
       backgroundColor: FinanzappColorsLightMode.MAIN_BACKGROUND_COLOR,
       body: isLoading? Center(
@@ -97,7 +110,7 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
         child: Container(
           child: Column(
             children: <Widget>[
-              TIRWidget(totalAmount: totalAmount, receipts: recibos,),
+              TIRWidget(totalAmount: totalAmount, receipts: recibos, yearDates: yearDates,),
               Column(
                 children: List.generate(recibos.length, (index) => ConsultationTileWidget(receiptObject: recibos[index], selectReceiptObject: selectReceiptObject,)),
               ),
@@ -106,7 +119,11 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
         ),
       ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => displayReciboDialog(false),
+          onPressed: () {
+            setState(() {
+              recibos.add(new ReceiptObject(recibos.length, 0, DateTime.now(), DateTime.now(), "Recibo N°${recibos.length + 1}", currencyType));
+            });
+          },
           child: Icon(
             Icons.add,
             size: ScreenUtil.getInstance().setSp(80),

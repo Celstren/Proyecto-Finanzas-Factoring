@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_finanzas/model/data_base/shared_preference_data.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/logic/factoring_calculator_logic.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/objects/factoring_objects.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/widgets/factoring_calculator_widgets/calculated_time_widget.dart';
@@ -19,8 +20,9 @@ import 'package:proyecto_finanzas/view/history/objects/receipt_object.dart';
 
 class FactoringCalculatorPage extends StatefulWidget{
   final ReceiptObject receiptObject;
+  final int currentType;
 
-  const FactoringCalculatorPage({Key key, this.receiptObject}) : super(key: key);
+  const FactoringCalculatorPage({Key key, this.receiptObject, this.currentType = 0}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -42,6 +44,21 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
   FinanceDateEnum ratePeriod = FinanceDateEnum.FINANCE_DAY;
   FactoringResultObject resultObject = FactoringResultObject(0, 0, 0, 0, 0, 0);
   bool showResult = false;
+  int yearDates = 360;
+  int currencyType = 0;
+
+  setInitialData(){
+    SharedPreferenceData.getYearDates().then((_yearDate){
+      SharedPreferenceData.getCurrencySelected().then((_currencyType){
+        if (mounted){
+          setState(() {
+            yearDates = _yearDate != null? _yearDate : 360;
+            currencyType = _currencyType != null? _currencyType : 0;
+          });
+        }
+      });
+    });
+  }
 
   updateStartDate(DateTime newStartDate){
     setState(() {
@@ -118,7 +135,7 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
         //Day Net difference
         //int difDays = endDate.difference(startDate).inDays;
 
-        int difDays = peruStandardDaysDifferenceConversion(startDate, endDate);
+        int difDays = endDate.difference(startDate).inDays;
 
         double m = FinanceDateEnum.getFinanceDateFromId(1, ratePeriod.id).toFinanceDay(isExact: false).value / capitalizationDays;
         double n = difDays / capitalizationDays;
@@ -129,7 +146,7 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
         //Day Net difference
         //int difDays = endDate.difference(startDate).inDays;
 
-        int difDays = peruStandardDaysDifferenceConversion(startDate, endDate);
+        int difDays = endDate.difference(startDate).inDays;
 
         double m = FinanceDateEnum.getFinanceDateFromId(1, ratePeriod.id).toFinanceDay(isExact: false).value;
 
@@ -173,6 +190,10 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
     });
   }
 
+  double calculateVariation(double amount, double variation){
+    return double.parse((amount * variation).toStringAsFixed(2));
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -183,7 +204,11 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
     rateSelected = widget.receiptObject.rateSelected;
     capitalizationPeriod = widget.receiptObject.capitalizationPeriod;
     ratePeriod = widget.receiptObject.ratePeriod;
-    amountTextEditingController.updateValue(widget.receiptObject.amountTextEditingController.numberValue);
+    if (widget.currentType == 0){
+      amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",", initialValue: widget.receiptObject.amountTextEditingController.numberValue);
+    } else {
+      amountTextEditingController = MoneyMaskedTextController(leftSymbol: 's/. ', decimalSeparator: ".", thousandSeparator: ",", initialValue: widget.receiptObject.amountTextEditingController.numberValue);
+    }
     rateAmountController.updateValue(widget.receiptObject.rateAmountController.numberValue);
     widget.receiptObject.costs.forEach((cost){
       costs.add(cost);
@@ -191,6 +216,8 @@ class _FactoringCalculatorPageState extends State<FactoringCalculatorPage>{
     widget.receiptObject.payments.forEach((payment){
       payments.add(payment);
     });
+    currencyType = widget.currentType;
+    setInitialData();
   }
 
   @override

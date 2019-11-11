@@ -124,6 +124,17 @@ class MainViewStrings {
     desc: "${howMany.toStringAsFixed(_stringPrecision)} Días",
   );
 
+  static financeDayIntCount(int howMany) => Intl.plural(
+    howMany,
+    zero: "0 Días",
+    one: "$howMany Día",
+    other: "$howMany Días",
+    name: "Días",
+    args: [howMany],
+    examples: const {'howMany': 42},
+    desc: "$howMany Días",
+  );
+
 }
 
 class FactoringCalculatorStrings {
@@ -298,5 +309,5 @@ class SettingsStrings {
 
   static const LAST_UPDATE = "Última actualización: ";
 
-  static const ENABLE_PERU_STANDARD = "Habilitar calendario del Perú: ";
+  static const DISABLE_PERU_STANDARD = "Deshabilitar calendario del Perú: ";
 }

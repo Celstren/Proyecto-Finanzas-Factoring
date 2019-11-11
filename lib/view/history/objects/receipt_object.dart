@@ -1,3 +1,4 @@
+import 'package:proyecto_finanzas/helpers/finanzapp_currencies.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_enums.dart';
 import 'package:proyecto_finanzas/model/data_base/recibo_model/recibo.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/objects/factoring_objects.dart';
@@ -17,8 +18,9 @@ class ReceiptObject {
   Rate rateSelected = Rate.EFFECTIVE_RATE;
   FinanceDateEnum capitalizationPeriod = FinanceDateEnum.FINANCE_DAY;
   FinanceDateEnum ratePeriod = FinanceDateEnum.FINANCE_DAY;
+  int currencySelected = 0;
 
-  ReceiptObject(this.index, this.amount, this.expirationDate, this.discountDate);
+  ReceiptObject(this.index, this.amount, this.expirationDate, this.discountDate, this.descripcion, this.currencySelected);
 
   clear(){
     factoringResultObject = FactoringResultObject(0, 0, 0, 0, 0, 0);
@@ -28,8 +30,43 @@ class ReceiptObject {
     payments = [];
   }
 
+  updateCurrency(int newCurrency){
+    if (currencySelected != newCurrency){
+      currencySelected = newCurrency;
+      double variation = 0;
+      if (newCurrency == 0){
+        variation = FinanzappCurrencies.PEN_TO_USD;
+        amountTextEditingController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",", initialValue: calculateVariation(amountTextEditingController.numberValue, variation));
+        costs.forEach((cost){
+          cost.amountController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",", initialValue: calculateVariation(cost.amountController.numberValue, variation));
+        });
+        payments.forEach((payment){
+          payment.amountController = MoneyMaskedTextController(leftSymbol: '\$ ', decimalSeparator: ".", thousandSeparator: ",", initialValue: calculateVariation(payment.amountController.numberValue, variation));
+        });
+      } else {
+        variation = FinanzappCurrencies.USD_TO_PEN;
+        amountTextEditingController = MoneyMaskedTextController(leftSymbol: 's/. ', decimalSeparator: ".", thousandSeparator: ",", initialValue: calculateVariation(amountTextEditingController.numberValue, variation));
+        costs.forEach((cost){
+          cost.amountController = MoneyMaskedTextController(leftSymbol: 's/. ', decimalSeparator: ".", thousandSeparator: ",", initialValue: calculateVariation(cost.amountController.numberValue, variation));
+        });
+        payments.forEach((payment){
+          payment.amountController = MoneyMaskedTextController(leftSymbol: 's/. ', decimalSeparator: ".", thousandSeparator: ",", initialValue: calculateVariation(payment.amountController.numberValue, variation));
+        });
+      }
+      amount = calculateVariation(amount, variation);
+      factoringResultObject.discountAmount = calculateVariation(factoringResultObject.discountAmount, variation);
+      factoringResultObject.givenValue = calculateVariation(factoringResultObject.givenValue, variation);
+      factoringResultObject.receivedValue = calculateVariation(factoringResultObject.receivedValue, variation);
+      factoringResultObject.netValue = calculateVariation(factoringResultObject.netValue, variation);
+    }
+  }
+
+  double calculateVariation(double amount, double variation){
+    return double.parse((amount * variation).toStringAsFixed(2));
+  }
+
   factory ReceiptObject.fromRecibo(Recibo recibo, int index){
-    ReceiptObject receiptObject = new ReceiptObject(index, 1000, recibo.fechaVencimiento, recibo.fechaDescuento);
+    ReceiptObject receiptObject = new ReceiptObject(index, 1000, recibo.fechaVencimiento, recibo.fechaDescuento, "", 0);
     receiptObject.descripcion = recibo.descripcion;
     receiptObject.factoringResultObject = new FactoringResultObject(recibo.tasaDescuento, receiptObject.amount * recibo.tasaDescuento, 0, 0, recibo.tasaCostesEfectiva, 0);
 

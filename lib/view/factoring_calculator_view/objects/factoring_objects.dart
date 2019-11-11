@@ -3,26 +3,26 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 
 class CostObject {
-  final TextEditingController nameController;
-  final MoneyMaskedTextController amountController;
+  TextEditingController nameController;
+  MoneyMaskedTextController amountController;
 
   CostObject(this.nameController, this.amountController);
 }
 
 class PaymentObject {
-  final TextEditingController nameController;
-  final MoneyMaskedTextController amountController;
+  TextEditingController nameController;
+  MoneyMaskedTextController amountController;
 
   PaymentObject(this.nameController, this.amountController);
 }
 
 class FactoringResultObject {
-  final double discountRate;
-  final double discountAmount;
-  final double givenValue;
-  final double receivedValue;
-  final double netValue;
-  final double effectiveAnnualCostRate;
+  double discountRate;
+  double discountAmount;
+  double givenValue;
+  double receivedValue;
+  double netValue;
+  double effectiveAnnualCostRate;
 
   FactoringResultObject(this.discountRate, this.discountAmount, this.givenValue, this.receivedValue, this.effectiveAnnualCostRate, this.netValue);
 }

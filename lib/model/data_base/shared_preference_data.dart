@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferenceData {
   static const _token = "token";
   static const _userInfo = "user";
+  static const _yearDates = "year_dates";
+  static const _currencySelected = "currency_selected";
 
   SharedPreferenceData();
 
@@ -27,6 +29,26 @@ class SharedPreferenceData {
   static Future<User> getUser() async {
     final  SharedPreferences preference = await SharedPreferences.getInstance();
     return preference.getString(_userInfo) != null? User.fromJson(jsonDecode(preference.getString(_userInfo))) : null;
+  }
+
+  static Future<bool> setYearDates(int years) async {
+    final  SharedPreferences preference = await SharedPreferences.getInstance();
+    return preference.setInt(_yearDates, years);
+  }
+
+  static Future<int> getYearDates() async {
+    final  SharedPreferences preference = await SharedPreferences.getInstance();
+    return preference.getInt(_yearDates);
+  }
+
+  static Future<bool> setCurrencySelected(int currencyType) async {
+    final  SharedPreferences preference = await SharedPreferences.getInstance();
+    return preference.setInt(_currencySelected, currencyType);
+  }
+
+  static Future<int> getCurrencySelected() async {
+    final  SharedPreferences preference = await SharedPreferences.getInstance();
+    return preference.getInt(_currencySelected);
   }
 
   static Future<bool> cleanData() async {

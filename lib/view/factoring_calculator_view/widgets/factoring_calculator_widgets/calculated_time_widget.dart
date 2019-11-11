@@ -22,7 +22,7 @@ class CalculatedTimeWidget extends StatelessWidget {
           Flexible(
             fit: FlexFit.tight,
             child: Center(
-              child: Text(MainViewStrings.financeDayCount(daysAmount.toDouble()), style: FinanzappStyles.commonTextStyle3,),
+              child: Text(MainViewStrings.financeDayIntCount(daysAmount), style: FinanzappStyles.commonTextStyle3,),
             ),
           ),
         ],

@@ -40,7 +40,7 @@ class ConsultationTileWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text("${CalculationDetailsString.NET_AMOUNT}", style: FinanzappStyles.commonTextStyle1,),
-                        Text("${receiptObject.amount}", style: FinanzappStyles.commonTextStyle1,),
+                        Text("${receiptObject.amount.toStringAsFixed(2)}", style: FinanzappStyles.commonTextStyle1,),
                       ],
                     ),
                   ),
