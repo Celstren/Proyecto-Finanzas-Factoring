@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
 import 'package:proyecto_finanzas/view/finanzapp_main/main_view.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
