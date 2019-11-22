@@ -38,12 +38,6 @@ class HistoryTileWidget extends StatelessWidget {
 //                    child: Text("${HistoryStrings.NAME_OF_CONSULTATION}${consultationObject.index}", style: FinanzappStyles.commonTextStyle3,),
                     child: Text(consultationObject.descripcion, style: FinanzappStyles.commonTextStyle3,),
                   ),
-                  Container(
-                    child: Text("${HistoryStrings.NUMBER_OF_FACTORING_CALCULATIONS}${consultationObject.cantidadRecibos != null? consultationObject.cantidadRecibos : 0}", style: FinanzappStyles.commonTextStyle1,),
-                  ),
-                  Container(
-                    child: Text("${HistoryStrings.DATE}${DateFormat("dd/MM/yyyy - hh:mm aa").format(consultationObject.date != null? consultationObject.date : DateTime.now())}", style: FinanzappStyles.commonTextStyle11,),
-                  ),
                 ],
               ),
               Container(

@@ -138,7 +138,7 @@ class MainViewStrings {
 }
 
 class FactoringCalculatorStrings {
-  static const String TITLE = "Calculadora de Descuentos";
+  static const String TITLE = "Calculadora";
   static const String FEE_RECEIPT_AMOUNT = "Importe del recibo por honorario";
   static const String START_DATE = "Fecha de Inicio";
   static const String END_DATE = "Fecha de Vencimiento";
@@ -241,6 +241,9 @@ class HistoryStrings {
   static const String UPDATE_CARTERA_FAILED_ERROR_MESSAGE = "Hubo un error al actualizar la cartera";
   static const String DELETE_CARTERA_SUCCESS_MESSAGE = "Cartera eliminada correctamente";
   static const String DELETE_CARTERA_FAILED_ERROR_MESSAGE = "Hubo un error al eliminar la cartera";
+
+  static const String HELP_DIALOG_TITLE = "Cartera";
+  static const String HELP_DIALOG_CONTENT = "Las carteras son un grupo de recibos a partir de los cuales se puede calcular el valor de la Tasa Interna de Retorno(TIR).";
 }
 
 class CalculationDetailsString {
@@ -253,6 +256,20 @@ class CalculationDetailsString {
   static const String NAME_OF_RECEIPT = "Recibo N°";
   static const String RECIBO_DIALOG_DESCRIPTION = "Descripción:";
   static const String RECIBO_DIALOG_DESCRIPTION_HINT = "Añada descripción";
+
+  static const String TIR_HELP_DIALOG_TITLE = "Tasa Interna de Retorno (TIR)";
+  static const String TIR_HELP_DIALOG_CONTENT = "La Tasa interna de retorno es la tasa de interés o rentabilidad que ofrece la inversión de los recibos ingresados.";
+  static const String RECEIPT_HELP_DIALOG_TITLE = "Recibo";
+  static const String RECEIPT_HELP_DIALOG_CONTENT = "Definición: El Recibo por Honorarios es un tipo comprobante de pago que se emite por los servicios otorgados de algún empleado";
+  static const String RECEIPT_HELP_DIALOG_RATE = "Tasa: Una tasa es un coeficiente que refleja la relación entre dos magnitudes y permite expresar el interés (la utilidad, el valor o la ganancia de los recibos). Este puede ser Efectiva o Nominal";
+  static const String RECEIPT_HELP_DIALOG_RATE_NOMINAL = "Tasa Nominal: Se denomina interés compuesto en activos monetarios a aquel que se va sumando al capital inicial y sobre el que se van generando nuevos intereses";
+  static const String RECEIPT_HELP_DIALOG_RATE_EFFECTIVE = "Tasa Efectiva: La tasa efectiva nos da el porcentaje de interés total que se genera o que se aplica sobre una cantidad de dinero durante un periodo de tiempo determinado";
+  static const String RESULT_HELP_DIALOG_TITLE = "Resultados del Cálculo";
+  static const String RESULT_HELP_DIALOG_DISCOUNT = "Descuento: Cantidad restada del recibo por honorario entregado";
+  static const String RESULT_HELP_DIALOG_NET_VALUE = "Valor Neto: Valor actual del recibo por honorario entregado";
+  static const String RESULT_HELP_DIALOG_RECEIVED_VALUE = "Valor Recibido: Valor que el usuario recibe por el recibo por honorario entregado";
+  static const String RESULT_HELP_DIALOG_GIVEN_VALUE = "Valor Recibido: Valor que el usuario entrega por la transacción del recibo por honorario";
+  static const String RESULT_HELP_DIALOG_TCEA = "Tasa de Costo Efectivo Anual:  Es aquella que engloba todo lo que le cuesta al usuario el crédito que realiza con el recibo";
 }
 
 class SignInStrings {

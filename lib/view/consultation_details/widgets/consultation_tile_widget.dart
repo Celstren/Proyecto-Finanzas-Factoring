@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_strings.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
+import 'package:proyecto_finanzas/view/consultation_details/widgets/receipt_help_dialog.dart';
 import 'package:proyecto_finanzas/view/history/objects/receipt_object.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +16,16 @@ class ConsultationTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    displayReceiptHelpDialog(){
+      showDialog(
+        context: context,
+        builder: (context){
+          return ReceiptHelpDialogWidget();
+        }
+      );
+    }
+
     return GestureDetector(
       onTap: () => selectReceiptObject(receiptObject),
       child: Container(
@@ -78,7 +89,15 @@ class ConsultationTileWidget extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: ScreenUtil.getInstance().setWidth(50)),
-                child: Icon(Icons.arrow_forward_ios, size: ScreenUtil.getInstance().setSp(40),),
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () => displayReceiptHelpDialog(),
+                      child: Icon(Icons.help, size: ScreenUtil.getInstance().setSp(40),),
+                    ),
+                    Padding(padding: EdgeInsets.only(left: ScreenUtil.getInstance().setWidth(40)), child: Icon(Icons.arrow_forward_ios, size: ScreenUtil.getInstance().setSp(40),),),
+                  ],
+                ),
               ),
             ],
           ),

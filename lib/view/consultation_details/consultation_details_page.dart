@@ -4,6 +4,7 @@ import 'package:proyecto_finanzas/helpers/finanzapp_styles.dart';
 import 'package:proyecto_finanzas/model/data_base/cartera_model/cartera.dart';
 import 'package:proyecto_finanzas/model/data_base/shared_preference_data.dart';
 import 'package:proyecto_finanzas/view/consultation_details/widgets/consultation_tile_widget.dart';
+import 'package:proyecto_finanzas/view/consultation_details/widgets/result_help_dialog.dart';
 import 'package:proyecto_finanzas/view/consultation_details/widgets/tir_widget.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/factoring_calculator_page.dart';
 import 'package:proyecto_finanzas/helpers/finanzapp_colors.dart';
@@ -30,11 +31,34 @@ class _ConsultationDetailsPageState extends State<ConsultationDetailsPage> {
 
   selectReceiptObject(ReceiptObject receiptObject){
     Navigator.push(context, MaterialPageRoute(builder: (context) {
+
+      displayHelpDialog(){
+        showDialog(
+            context: context,
+            builder: (context){
+              return ResultHelpDialogWidget();
+            }
+        );
+      }
+
       return Scaffold(
         appBar: AppBar(
           title: Center(
             child: Text(FactoringCalculatorStrings.TITLE.toUpperCase(), style: FinanzappStyles.titleStyle2,),
           ),
+          actions: <Widget>[
+            Container(
+              height: ScreenUtil.getInstance().setHeight(10),
+              width: ScreenUtil.getInstance().setWidth(150),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () => displayHelpDialog(),
+                  child: Icon(Icons.help, size: ScreenUtil.getInstance().setSp(60),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         body: FactoringCalculatorPage(receiptObject: receiptObject, currentType: currencyType,),
       );

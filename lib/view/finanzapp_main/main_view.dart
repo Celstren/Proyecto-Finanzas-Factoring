@@ -7,6 +7,7 @@ import 'package:proyecto_finanzas/model/data_base/user_model/user.dart';
 import 'package:proyecto_finanzas/view/effective_rate/effective_rate_view.dart';
 import 'package:proyecto_finanzas/view/factoring_calculator_view/factoring_calculator_page.dart';
 import 'package:proyecto_finanzas/view/finanzapp_main/widgets/drawer_widget.dart';
+import 'package:proyecto_finanzas/view/finanzapp_main/widgets/history_help_widget.dart';
 import 'package:proyecto_finanzas/view/history/history_page.dart';
 import 'package:proyecto_finanzas/view/history/objects/receipt_object.dart';
 import 'package:proyecto_finanzas/view/nominal_rate/nominal_rate_view.dart';
@@ -29,6 +30,7 @@ class _StateMainView extends State<MainView>{
   bool loggedIn = false;
   String appBarTitle = MainViewStrings.HISTORY.toUpperCase();
   User user;
+  int viewSelected = 0;
 
   doLogoutFun(){
     SharedPreferenceData.cleanData();
@@ -54,11 +56,13 @@ class _StateMainView extends State<MainView>{
         } else if (T == SeeEquivalenciesView){
           _currentView = SeeEquivalenciesView();
         } else if (T == TIRCalculatorView){
+          viewSelected = 1;
           appBarTitle = MainViewStrings.CALCULATOR;
           _currentView = TIRCalculatorView();
         } else if (T == FactoringCalculatorPage){
           _currentView = FactoringCalculatorPage(receiptObject: new ReceiptObject(0, 0, DateTime.now(), DateTime.now(), "", 0),);
         } else if (T == SettingsView){
+          viewSelected = 2;
           appBarTitle = MainViewStrings.SETTINGS;
           _currentView = SettingsView();
         } else {
@@ -75,6 +79,28 @@ class _StateMainView extends State<MainView>{
     });
   }
 
+  displayHelpDialog(){
+    showDialog(
+      context: context,
+      builder: (context){
+        switch(viewSelected){
+          case 0:
+            return HistoryHelpWidget();
+            break;
+          case 1:
+            return HistoryHelpWidget();
+            break;
+          case 2:
+            return HistoryHelpWidget();
+            break;
+          default:
+            return HistoryHelpWidget();
+            break;
+        }
+      }
+    );
+  }
+
   Widget _buildMainView(){
     if (finishInitialLoading){
       if (loggedIn){
@@ -85,6 +111,19 @@ class _StateMainView extends State<MainView>{
               title: Center(
                 child: Text(appBarTitle, style: FinanzappStyles.titleStyle2,),
               ),
+              actions: <Widget>[
+                Container(
+                  height: ScreenUtil.getInstance().setHeight(10),
+                  width: ScreenUtil.getInstance().setWidth(150),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () => displayHelpDialog(),
+                      child: Icon(Icons.help, size: ScreenUtil.getInstance().setSp(60),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             drawer: Drawer(
               child: DrawerWidget(updateStateWithNewView, user),
